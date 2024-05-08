@@ -1,0 +1,56 @@
+ALGORITHM read_a_sentence
+VAR
+    sentence : STRING := "Lorem ipsum dolor sit amet.";
+    length, words, vowels : INTEGER := 0;
+    character : CHARACTER;
+
+    // Function to extract each character from the sentence
+    FUNCTION EXTRACT_CHARACTER(sentence: STRING, position: INTEGER): CHARACTER
+    BEGIN
+        RETURN SUBSTRING(sentence, position - 1, 1);
+    END
+
+    // Function to check if a character is a vowel
+    FUNCTION IS_VOWEL(character: CHARACTER): BOOLEAN
+    BEGIN
+        character := LOWER(character);
+        RETURN (character = 'a' OR character = 'e' OR character = 'i' OR character = 'o' OR character = 'u');
+    END
+
+BEGIN
+    // Initialize counters
+    length := 0;
+    words := 0;
+    vowels := 0;
+
+    // Iterate through each character of the sentence
+    FOR i FROM 1 TO LENGTH(sentence) DO
+        character := EXTRACT_CHARACTER(sentence, i);
+        IF character ≠ ' ' AND character ≠ '.' THEN
+            // Increment sentence length
+            length := length + 1;
+            
+            // Check if the character is a vowel
+            IF IS_VOWEL(character) THEN
+                vowels := vowels + 1;
+            END IF
+        ELSE IF character = ' ' THEN
+            // Increment word count
+            words := words + 1;
+        END IF
+    END FOR
+
+    // Increment word count for the last word
+    words := words + 1;
+    
+    // Display the results
+    Write("Length of the sentence:", length);
+    Write("Number of words:", words);
+    Write("Number of vowels:", vowels);
+END
+
+
+
+
+
+
